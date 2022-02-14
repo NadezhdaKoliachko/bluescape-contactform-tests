@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "simplerun": "npx codeceptjs run"
+    "simplerun": "npx codeceptjs run",
+    "allbrowsers": "npx codeceptjs run-multiple basic"
   },
   "keywords": [],
   "author": "",

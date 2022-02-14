@@ -5,8 +5,13 @@ exports.config = {
     Playwright: {
       url: 'https://bluescapeqainterview.wordpress.com/contact/',
       show: true,
-      browser: 'chromium'
+      browser: 'firefox'
     }
+  },
+  multiple: {
+    basic: {
+      browsers: ['chromium', 'webkit', 'firefox']
+    },
   },
   include: {
     I: './steps_file.js'
