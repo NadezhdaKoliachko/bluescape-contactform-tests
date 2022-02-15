@@ -14,6 +14,8 @@
   "devDependencies": {
     "codeceptjs": "^3.3.0",
     "playwright": "^1.19.0"
+  },
+  "dependencies": {
+    "codeceptjs-assert": "^0.0.5"
   }
 }
-
