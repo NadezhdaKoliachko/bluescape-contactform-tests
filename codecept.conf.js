@@ -1,11 +1,13 @@
 exports.config = {
-  tests: './tests/*_test.js',
+  tests: './tests/*Test.js',
   output: './output',
   helpers: {
     Playwright: {
-      url: 'https://bluescapeqainterview.wordpress.com/contact/',
-      show: true,
-      browser: 'firefox'
+      url: 'https://bluescapeqainterview.wordpress.com/',
+      show: true
+    },
+    AssertWrapper : {
+      require: "codeceptjs-assert"
     }
   },
   multiple: {
@@ -14,7 +16,10 @@ exports.config = {
     },
   },
   include: {
-    I: './steps_file.js'
+    I: './steps_file.js',
+    contactPage: './pages/ContactPage.js',
+    homePage: './pages/HomePage.js',
+    headerFragment: './fragments/Header.js'
   },
   bootstrap: null,
   mocha: {},
