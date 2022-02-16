@@ -1,3 +1,4 @@
+const assert = require("assert");
 const { I } = inject();
 
 module.exports = {
@@ -7,8 +8,11 @@ module.exports = {
     navigationMenu: locate('#menu-primary'),
 
     locateNavigationLinkById(id) {
-        return locate('a').inside(this.navigationMenu.find(id));
-    }
+        return locate(this.navigationMenu.find(id).find('a'));
+    },
+
+
+
 
     // insert your locators and methods here
 }
