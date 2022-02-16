@@ -6,16 +6,13 @@ module.exports = function() {
     //Accepts infinite number of 2 value arrays in format [fieldLabelLocator, inputLocator]
     async checkFieldsAreRequired(){
      var args = arguments;
-     var areFieldsRequired = false;
+     var areFieldsRequired = true;
       for(var i = 0; i < args.length; i++){
         var fieldLabel = args[i][0], inputLocator = args[i][1];
         var spanText = await this.grabTextFrom(locate('span').inside(fieldLabel));
-        if(spanText == "(required)" &&
-                await this.grabAttributeFrom(inputLocator, 'required') == '' &&
-                await this.grabAttributeFrom(inputLocator, 'aria-required') == 'true'){
-            areFieldsRequired = true;
-        }
-        else {
+        var requiredAttr = await this.grabAttributeFrom(inputLocator, 'required');
+        var ariaRequiredAttr = await this.grabAttributeFrom(inputLocator, 'aria-required');
+        if(spanText !== "(required)" || requiredAttr !== true || ariaRequiredAttr !== 'true'){
             return false;
         }
       }
