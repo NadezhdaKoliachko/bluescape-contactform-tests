@@ -1,25 +1,26 @@
-const { I, headerFragment } = inject();
+const {I} = inject();
 
 module.exports = {
 
-    contactPageUrl: 'contact/',
-    contactPageMenuHeaderLink: headerFragment.locateNavigationLinkById('#menu-item-22'),
-    contactForm: locate('#contact-form-7').find('form'),
-    contactFormFields: {
-        nameFieldLabel: locate('label[class="grunion-field-label name"]'),
-        nameInput: locate('input#g7-name'),
-        emailFieldLabel: locate('label[class="grunion-field-label email"]'),
-        emailInput: locate('input#g7-email'),
-        webSiteInput: locate('input#g7-website'),
-        dateInput: locate('input#g7-date')
-    },
-
-    async checkContactFormRequiredFields() {
-        return await I.checkFieldsAreRequired([this.contactFormFields.nameFieldLabel, this.contactFormFields.nameInput],
-            [this.contactFormFields.emailFieldLabel, this.contactFormFields.emailInput]);
-    }
-
-
-
-  // insert your locators and methods here
+        contactPageUrl: 'contact/',
+        contactPageMenuHeaderLink: locate('#menu-item-22').find('a'),
+        contactForm: locate('form[class="contact-form commentsblock"]'),
+        contactFormFields: {
+            name: {
+                label: locate('label[class="grunion-field-label name"]'),
+                input: locate('input#g7-name'),
+            },
+            email: {
+                label: locate('label[class="grunion-field-label email"]'),
+                input: locate('input#g7-email'),
+            },
+            website: {
+                input: locate('input#g7-website')
+            },
+            date: {
+                input: locate('input#g7-date'),
+                datePicker: locate('#ui-datepicker-div')
+            }
+        },
+        submitButton: locate('button[type="submit"]')
 }
