@@ -15,12 +15,4 @@ module.exports = {
         var ariaRequiredAttr = await I.grabAttributeFrom(inputLocator, 'aria-required');
         return !(spanText !== "(required)" || requiredAttr !== true || ariaRequiredAttr !== 'true');
     },
-
-    async locateElementByClass(element, classValue){
-        return locate(`.${classValue}`);
-},
-
-    async locateElementById(element, id){
-        return locate(`${element}#${id}`);
-    }
 }
