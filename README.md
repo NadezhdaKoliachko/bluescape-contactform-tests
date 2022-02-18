@@ -31,7 +31,8 @@ For Mac Osx use Homebrew:
 4. Run tests using command of a kind:
  ```
  npm run simplerun   //running all tests without reporting
- npx codeceptjs run --plugins allure   //running all tests and creates .xml report in ./output folder
+ npm run allureSimpleRun  //running all tests and creates .xml report in ./output folder
+ npx codeceptjs run-multiple basic //running tests in chrome, firefox, safari
  ```
 5. See Allure report (if created): 
  ```
