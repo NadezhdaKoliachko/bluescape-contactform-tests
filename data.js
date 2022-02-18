@@ -1,9 +1,7 @@
-const {I} = inject();
-
 module.exports = {
 
     name: "John Doe",
     emailValue: "john.doe@example.com",
     website: "http://johndoe.com",
-    dateDay: "11"
+    dateValue: "February 15, 2022"
 }

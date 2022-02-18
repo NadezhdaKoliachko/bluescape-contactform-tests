@@ -3,10 +3,9 @@ exports.config = {
   tests: './tests/*Test.js',
   output: './output',
   helpers: {
-    Playwright: {
+    Puppeteer: {
       url: 'https://bluescapeqainterview.wordpress.com/',
-      show: true,
-      waitForAction: 500
+      show: true
     },
     AssertWrapper : {
       require: "codeceptjs-assert"
@@ -20,6 +19,8 @@ exports.config = {
   include: {
     I: './steps_file.js',
     contactPage: './pages/ContactPage.js',
+    cssHelper: './helpers/cssHelper.js',
+    data: './data.js'
   },
   plugins: {
     allure: {}

@@ -1,4 +1,4 @@
-const {I} = inject();
+const {I, data, cssHelper} = inject();
 
 module.exports = {
 
@@ -8,19 +8,56 @@ module.exports = {
         contactFormFields: {
             name: {
                 label: locate('label[class="grunion-field-label name"]'),
-                input: locate('input#g7-name'),
+                input:  locate('input#g7-name')
             },
             email: {
                 label: locate('label[class="grunion-field-label email"]'),
-                input: locate('input#g7-email'),
+                input: locate('input#g7-email')
             },
             website: {
-                input: locate('input#g7-website')
+                input:  locate('input#g7-website')
             },
             date: {
-                input: locate('input#g7-date'),
-                datePicker: locate('#ui-datepicker-div')
+                input: locate('input#g7-date')
             }
         },
-        submitButton: locate('button[type="submit"]')
+        submitButton: locate('button[type="submit"]'),
+
+    async openContactPage(){
+        await I.amOnPage('/' + this.contactPageUrl);
+    },
+
+    async fillCompletedContactForm(){
+        await I.fillTheFormCompletely(this.createCompletedContactForm());
+        await I.click(this.submitButton);
+    },
+
+    async fillContactFormExcludingFields(arrayOfExcludedInputLocators){
+        await I.fillTheFormExcludingFields(this.createCompletedContactForm(), arrayOfExcludedInputLocators);
+        await I.click(this.submitButton);
+    },
+
+    createCompletedContactForm(){
+        let map = new Map();
+        map.set(this.contactFormFields.name.input, data.name);
+        map.set(this.contactFormFields.email.input, data.emailValue);
+        map.set(this.contactFormFields.website.input, data.website);
+        map.set(this.contactFormFields.date.input, data.dateValue);
+        return map;
+    },
+
+    async checkContactFormFieldIsRequired(fieldLabel, inputLocator){
+        if(await cssHelper.checkFieldIsRequired(fieldLabel,
+            inputLocator)){
+            const currURL = await I.grabCurrentUrl();
+            await this.fillContactFormExcludingFields([inputLocator]);
+            return await I.grabCurrentUrl() === currURL;
+        }
+        return false;
+    },
+
+    async checkContactPageMenuIsActive(){
+        return await cssHelper.getAriaCurrentOfElement(this.contactPageMenuHeaderLink) === 'page';
+    }
+
 }
