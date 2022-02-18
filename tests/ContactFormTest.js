@@ -1,4 +1,4 @@
-const {I, contactPage, cssHelper, data} = inject();
+const {contactPage, cssHelper} = inject();
 const log4js = require("log4js");
 const assert = require('assert')
 
