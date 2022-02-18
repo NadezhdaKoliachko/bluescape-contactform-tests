@@ -1,8 +1,9 @@
+
 exports.config = {
   tests: './tests/*Test.js',
   output: './output',
   helpers: {
-    Playwright: {
+    Puppeteer: {
       url: 'https://bluescapeqainterview.wordpress.com/',
       show: true
     },
@@ -18,8 +19,11 @@ exports.config = {
   include: {
     I: './steps_file.js',
     contactPage: './pages/ContactPage.js',
-    homePage: './pages/HomePage.js',
-    headerFragment: './fragments/Header.js'
+    cssHelper: './helpers/cssHelper.js',
+    data: './data.js'
+  },
+  plugins: {
+    allure: {}
   },
   bootstrap: null,
   mocha: {},

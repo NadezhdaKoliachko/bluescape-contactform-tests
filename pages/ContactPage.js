@@ -1,25 +1,63 @@
-const { I, headerFragment } = inject();
+const {I, data, cssHelper} = inject();
 
 module.exports = {
 
-    contactPageUrl: 'contact/',
-    contactPageMenuHeaderLink: headerFragment.locateNavigationLinkById('#menu-item-22'),
-    contactForm: locate('#contact-form-7').find('form'),
-    contactFormFields: {
-        nameFieldLabel: locate('label[class="grunion-field-label name"]'),
-        nameInput: locate('input#g7-name'),
-        emailFieldLabel: locate('label[class="grunion-field-label email"]'),
-        emailInput: locate('input#g7-email'),
-        webSiteInput: locate('input#g7-website'),
-        dateInput: locate('input#g7-date')
+        contactPageUrl: 'contact/',
+        contactPageMenuHeaderLink: locate('#menu-item-22').find('a'),
+        contactForm: locate('form[class="contact-form commentsblock"]'),
+        contactFormFields: {
+            name: {
+                label: locate('label[class="grunion-field-label name"]'),
+                input:  locate('input#g7-name')
+            },
+            email: {
+                label: locate('label[class="grunion-field-label email"]'),
+                input: locate('input#g7-email')
+            },
+            website: {
+                input:  locate('input#g7-website')
+            },
+            date: {
+                input: locate('input#g7-date')
+            }
+        },
+        submitButton: locate('button[type="submit"]'),
+
+    async openContactPage(){
+        await I.amOnPage('/' + this.contactPageUrl);
     },
 
-    async checkContactFormRequiredFields() {
-        return await I.checkFieldsAreRequired([this.contactFormFields.nameFieldLabel, this.contactFormFields.nameInput],
-            [this.contactFormFields.emailFieldLabel, this.contactFormFields.emailInput]);
+    async fillCompletedContactForm(){
+        await I.fillTheFormCompletely(this.createCompletedContactForm());
+        await I.click(this.submitButton);
+    },
+
+    async fillContactFormExcludingFields(arrayOfExcludedInputLocators){
+        await I.fillTheFormExcludingFields(this.createCompletedContactForm(), arrayOfExcludedInputLocators);
+        await I.click(this.submitButton);
+    },
+
+    createCompletedContactForm(){
+        let map = new Map();
+        map.set(this.contactFormFields.name.input, data.name);
+        map.set(this.contactFormFields.email.input, data.emailValue);
+        map.set(this.contactFormFields.website.input, data.website);
+        map.set(this.contactFormFields.date.input, data.dateValue);
+        return map;
+    },
+
+    async checkContactFormFieldIsRequired(fieldLabel, inputLocator){
+        if(await cssHelper.checkFieldIsRequired(fieldLabel,
+            inputLocator)){
+            const currURL = await I.grabCurrentUrl();
+            await this.fillContactFormExcludingFields([inputLocator]);
+            return await I.grabCurrentUrl() === currURL;
+        }
+        return false;
+    },
+
+    async checkContactPageMenuIsActive(){
+        return await cssHelper.getAriaCurrentOfElement(this.contactPageMenuHeaderLink) === 'page';
     }
 
-
-
-  // insert your locators and methods here
 }

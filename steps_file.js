@@ -1,34 +1,22 @@
-// in this file you can append custom step methods to 'I' object
-const assert = require("assert");
 module.exports = function() {
   return actor({
 
-    //Accepts infinite number of 2 value arrays in format [fieldLabelLocator, inputLocator]
-    async checkFieldsAreRequired(){
-     var args = arguments;
-     var areFieldsRequired = true;
-      for(var i = 0; i < args.length; i++){
-        var fieldLabel = args[i][0], inputLocator = args[i][1];
-        var spanText = await this.grabTextFrom(locate('span').inside(fieldLabel));
-        var requiredAttr = await this.grabAttributeFrom(inputLocator, 'required');
-        var ariaRequiredAttr = await this.grabAttributeFrom(inputLocator, 'aria-required');
-        if(spanText !== "(required)" || requiredAttr !== true || ariaRequiredAttr !== 'true'){
-            return false;
+
+    async fillTheFormCompletely(mapForm){
+      var keys = Array.from(mapForm.keys());
+      for (var k of keys) {
+        this.fillField(k, mapForm.get(k));
+      }
+    },
+
+    async fillTheFormExcludingFields(mapForm, arrayOfInputLocators){
+      var keys = Array.from(mapForm.keys());
+      for (var k of keys) {
+        if(!arrayOfInputLocators.includes(k)){
+          this.fillField(k, mapForm.get(k));
         }
       }
-      return areFieldsRequired;
-    },
-
-    async getNavigationItemActivityStatus(navigationLink){
-        return await this.grabAttributeFrom(navigationLink, 'aria-current');
-    },
-
-    async getTypeOfElement(locator){
-      return await this.grabAttributeFrom(locator, 'type');
     }
-
-    // Define custom steps here, use 'this' to access default methods of I.
-    // It is recommended to place a general 'login' function here.
 
   });
 }
