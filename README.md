@@ -1,7 +1,7 @@
 # bluescape-contactform-tests
 This repository contains tests for Contact page, located at https://bluescapeqainterview.wordpress.com/contact/.
 
-Page Object pattern inplemented in Contact Page abstraction (./pages/ContactPage.js).
+Page Object pattern is inplemented in Contact Page abstraction (./pages/ContactPage.js).
 
 One helper is created (./helpers/cssHelper.js) for extraction of attribute from element and validation of "required" element css attributes.
 
