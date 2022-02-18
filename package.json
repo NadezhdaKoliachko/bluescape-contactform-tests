@@ -10,7 +10,7 @@
     "allureSimpleRun": "npx codeceptjs run --plugins allure"
   },
   "keywords": [],
-  "author": "",
+  "author": "Nadzeya Kaliachka",
   "license": "ISC",
   "devDependencies": {
     "codeceptjs": "^3.3.0",
