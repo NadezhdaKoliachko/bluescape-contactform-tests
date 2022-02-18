@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "simplerun": "npx codeceptjs run",
-    "allbrowsers": "npx codeceptjs run-multiple basic"
+    "simplerun": "npx codeceptjs run --steps",
+    "allbrowsers": "npx codeceptjs run-multiple basic",
+    "allureSimpleRun": "npx codeceptjs run --plugins allure"
   },
   "keywords": [],
   "author": "",
