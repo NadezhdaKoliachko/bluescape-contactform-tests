@@ -1,29 +1,28 @@
-module.exports = function() {
+module.exports = function () {
   return actor({
-
-    async fillTheFormCompletely(mapForm){
-      let keys = Array.from(mapForm.keys());
+    async fillTheFormCompletely(mapForm) {
+      const keys = Array.from(mapForm.keys());
       for (let k of keys) {
         this.fillField(k, mapForm.get(k));
       }
     },
 
-    async fillTheFormExcludingFields(mapForm, setOfExcludedInputLocators){
-      let keys = Array.from(mapForm.keys());
+    async fillTheFormExcludingFields(mapForm, setOfExcludedInputLocators) {
+      const keys = Array.from(mapForm.keys());
       for (let k of keys) {
-        if(!setOfExcludedInputLocators.has(k)){
+        if (!setOfExcludedInputLocators.has(k)) {
           this.fillField(k, mapForm.get(k));
         }
       }
     },
 
-    async fillTheFormExcludingField(mapForm, excludedInputlocator){
-      let keys = Array.from(mapForm.keys());
+    async fillTheFormExcludingField(mapForm, excludedInputlocator) {
+      const keys = Array.from(mapForm.keys());
       for (let k of keys) {
-        if(excludedInputlocator !== k){
+        if (excludedInputlocator !== k) {
           this.fillField(k, mapForm.get(k));
         }
       }
-    }
+    },
   });
-}
+};
