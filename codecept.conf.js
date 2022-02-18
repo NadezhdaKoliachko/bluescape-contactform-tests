@@ -1,4 +1,3 @@
-
 exports.config = {
   tests: './tests/*Test.js',
   output: './output',
@@ -6,9 +5,6 @@ exports.config = {
     Puppeteer: {
       url: 'https://bluescapeqainterview.wordpress.com/',
       show: true
-    },
-    AssertWrapper : {
-      require: "codeceptjs-assert"
     }
   },
   multiple: {
