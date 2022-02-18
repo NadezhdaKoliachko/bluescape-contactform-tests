@@ -28,16 +28,21 @@ module.exports = {
     },
 
     async fillCompletedContactForm(){
-        await I.fillTheFormCompletely(this.createCompletedContactForm());
+        await I.fillTheFormCompletely(this.createCompletedContactFormMap());
         await I.click(this.submitButton);
     },
 
-    async fillContactFormExcludingFields(arrayOfExcludedInputLocators){
-        await I.fillTheFormExcludingFields(this.createCompletedContactForm(), arrayOfExcludedInputLocators);
+    async fillContactFormExcludingFields(setOfExcludedInputLocators){
+        await I.fillTheFormExcludingFields(this.createCompletedContactFormMap(), setOfExcludedInputLocators);
         await I.click(this.submitButton);
     },
 
-    createCompletedContactForm(){
+    async fillContactFormExcludingField(excludedInputLocator){
+        await I.fillTheFormExcludingField(this.createCompletedContactFormMap(), excludedInputLocator);
+        await I.click(this.submitButton);
+    },
+
+    createCompletedContactFormMap(){
         let map = new Map();
         map.set(this.contactFormFields.name.input, data.name);
         map.set(this.contactFormFields.email.input, data.emailValue);
@@ -50,7 +55,7 @@ module.exports = {
         if(await cssHelper.checkFieldIsRequired(fieldLabel,
             inputLocator)){
             const currURL = await I.grabCurrentUrl();
-            await this.fillContactFormExcludingFields([inputLocator]);
+            await this.fillContactFormExcludingField(inputLocator);
             return await I.grabCurrentUrl() === currURL;
         }
         return false;
@@ -59,5 +64,4 @@ module.exports = {
     async checkContactPageMenuIsActive(){
         return await cssHelper.getAriaCurrentOfElement(this.contactPageMenuHeaderLink) === 'page';
     }
-
 }
